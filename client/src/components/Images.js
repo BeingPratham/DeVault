@@ -21,77 +21,79 @@ import {
 
 import './Images.css'
 
-function WSPGallery(){
-
-  const [account,setAccount] = useState("");
-  const [contract,setContract] = useState(null);
-  useEffect(() => {
-    
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    console.log("effe");
-    const loadProvider = async () => {
-      console.log("Helloo");
-      if (provider) {
-        window.ethereum.on("chainChanged", () => {
-          window.location.reload();
-        });
-
-        window.ethereum.on("accountsChanged", () => {
-          window.location.reload();
-        });
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        setAccount(address);
-        let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-        const contract = new ethers.Contract(
-          contractAddress,
-          Upload.abi,
-          signer
-        );
-        console.log(contract);
-        console.log(account);
-        setContract(contract);
+function WSPGallery({account,contract}){
+  // console.log("img",account);
+  // const [data, setData] = useState("");
+  // const getdata = async () => {
+  //   let dataArray;
+  //   const Otheraddress = document.querySelector(".address-img").value;
+  //   console.log(Otheraddress);
+  //   try {
+  //     if (Otheraddress) {
+  //       dataArray = await contract.display(Otheraddress);
         
+  //     } else {
         
-      } else {
-        console.error("Metamask is not installed");
-      }
-    };
+  //       dataArray = await contract.display(account);
+
+  //       console.log(dataArray);
+  //     }
     
-    provider && loadProvider();
-    // loadProvider();
-    
-    
-  }, []);
+  //   } catch (e) {
+  //     alert("You don't have access");
+  //   }
+  //   const isEmpty = Object.keys(dataArray).length === 0;
+  
+  //   if (!isEmpty) {
+  //     const str = dataArray.toString();
+  //     const str_array = str.split(",");
+  //     console.log(str_array);
+  //     const images = str_array.map((item, i) => {
+  //       return (
+  //         <a href={item} key={i} target="_blank">
+  //           <img
+  //             key={i}
+  //             src={`https://gateway.pinata.cloud/ipfs/${item.substring(6)}`}
+              
+  //             alt="new"
+  //             className="image-list"
+  //           ></img>
+  //         </a>
+  //       );
+  //     });
+  //     setData(images);
+  //     console.log("data",data.length);
+  //   } else {
+  //     alert("No image to display");
+  //   }
   const [data, setData] = useState("");
   const getdata = async () => {
     let dataArray;
-    const Otheraddress = document.querySelector(".address-img").value;
-    try {
-      if (Otheraddress) {
-        dataArray = await contract.display(Otheraddress);
-        console.log(dataArray);
-      } else {
-        dataArray = await contract.display(account);
-      }
-        
-    } catch (e) {
-      alert("You don't have access");
-    }
+    const Otheraddress = document.querySelector(".address").value;
+    dataArray = await contract.display(account);
+    // try {
+    //   if (Otheraddress) {
+    //     dataArray = await contract.display(Otheraddress);
+    //     console.log(dataArray);
+    //   } else {
+    //     dataArray = await contract.display(account);
+    //   }
+    // } catch (e) {
+    //   alert("You don't have access");
+    // }
     const isEmpty = Object.keys(dataArray).length === 0;
-  
+
     if (!isEmpty) {
       const str = dataArray.toString();
       const str_array = str.split(",");
-      console.log(str_array);
+      // console.log(str);
+      // console.log(str_array);
       const images = str_array.map((item, i) => {
         return (
           <a href={item} key={i} target="_blank">
             <img
               key={i}
               src={`https://gateway.pinata.cloud/ipfs/${item.substring(6)}`}
-              
               alt="new"
               className="image-list"
             ></img>
@@ -99,7 +101,6 @@ function WSPGallery(){
         );
       });
       setData(images);
-      console.log("data",data.length);
     } else {
       alert("No image to display");
     }
@@ -140,7 +141,7 @@ function WSPGallery(){
       <input
         type="text"
         placeholder="Enter Address"
-        className="address-img"
+        className="address"
       ></input>
       <br></br>
              <button onClick={getdata} className="getdata">Get Data</button>

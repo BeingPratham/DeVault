@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import "./App.css";
 import "./components/Home.css";
 import {
   BrowserRouter as Router,
@@ -18,7 +19,49 @@ import { ethers } from "ethers";
 
 
 
-function BasicExample({account}) {
+function BasicExample() {
+  const [account,setAccount] = useState("");
+  const [contract,setContract] = useState(null);
+  const [provider,setProvider] = useState(null);
+  const [modelopen,setModelopen] = useState(false);
+
+  useEffect(() => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    
+    const loadProvider = async () => {
+      
+      if (provider) {
+        window.ethereum.on("chainChanged", () => {
+          window.location.reload();
+        });
+        
+        window.ethereum.on("accountsChanged", () => {
+          window.location.reload();
+        });
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+        setAccount(address);
+        
+        let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+        const contract = new ethers.Contract(
+          contractAddress,
+          Upload.abi,
+          signer
+        );
+        
+        setContract(contract);
+        setProvider(provider);
+        
+      } else {
+        console.error("Metamask is not installed");
+      }
+    };
+    
+    provider && loadProvider();
+    
+    
+  }, []);
   // console.log(account);
   return (
 
@@ -39,16 +82,17 @@ function BasicExample({account}) {
                      
                      <Nav.Link as={Link} to="/myaccess">My Access</Nav.Link>
                    </Nav>
+                   <p className='acc'>{account}</p>
                  </Navbar.Collapse>
                </Container>
-               {/* <p>{account}</p> */}
+               
              </Navbar>
             <div>
               <Routes>
-                <Route path='/' element={<Home/>}></Route>
-                <Route path='/images' element={<WSPGallery/>}></Route>
+                <Route path='/' element={<Home account={account} provider={provider} contract={contract}/>}></Route>
+                <Route path='/images' element={<WSPGallery account={account} contract={contract}/>}></Route>
                  <Route path='/share' element={<Share />}></Route>
-                <Route path='/myaccess' element={<MyAccess />}></Route>
+                <Route path='/myaccess' element={<MyAccess contract={contract}/>}></Route>
               </Routes>
             </div>
           </Router> 

@@ -2,7 +2,7 @@ form{
     margin-top:50px;
         
 }
-form #txt{
+form .address-share{
     width: 40%;
     height: 40px;
     border: none;
@@ -47,6 +47,7 @@ form #txt{
     
   }
   #disp li{
+    font-weight: bolder;
     border-radius: 20px;
     width: 65%;
     background: white;
