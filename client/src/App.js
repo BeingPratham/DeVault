@@ -84,7 +84,11 @@ function BasicExample() {
                      
                      <Nav.Link as={Link} to="/myaccess" >My Access</Nav.Link>
                    </Nav>
+                   <div className='flx'>
+                   <div className='space'></div>
                    <p className='acc'>{account}</p>
+                   </div>
+                   
                  </Navbar.Collapse>
                </Container>
                

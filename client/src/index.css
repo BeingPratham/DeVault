@@ -12,8 +12,11 @@ video {
   height: 100%;
   object-fit: cover;
 }
-
+.content::-webkit-scrollbar {
+  display: none;
+}
 .content {
+  overflow-y: hidden;
   /* background-color: #303530; */
   /* background-image: url("https://cdn.wallpapersafari.com/7/80/gCWHKN.gif"); */
   background-size: 1536px;

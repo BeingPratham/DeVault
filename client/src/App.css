@@ -17,7 +17,14 @@
   color: orangered;
   transition: 0.5s linear;
 }
-
+.flx{
+  width: 396px;
+    height: 52px;
+    margin-top: -13px;
+}
+.space{
+  height: 20px;
+}
 .navbar-brand {
   padding-top: var(--bs-navbar-brand-padding-y);
   padding-bottom: var(--bs-navbar-brand-padding-y);
