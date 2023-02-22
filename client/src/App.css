@@ -17,6 +17,11 @@
   color: orangered;
   transition: 0.5s linear;
 }
+.logo{
+  height: 40px;
+  width: 40px;
+  
+}
 .flx{
   width: 396px;
     height: 52px;
