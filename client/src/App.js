@@ -17,7 +17,7 @@ import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import videoBg from "../src/images/earth.mp4";
-
+import logo from "../src/images/DeVault-logos_white.png"
 
 
 function BasicExample() {
@@ -74,7 +74,7 @@ function BasicExample() {
           {/* <Navbar bg="dark" expand="lg" variant="dark"> */}
           <Navbar className="navbar"  expand="lg">
               <Container>
-              <Nav.Link as={Link} to="/"><Navbar.Brand >DeVault</Navbar.Brand></Nav.Link>
+              <Nav.Link as={Link} to="/"><Navbar.Brand ><img src={logo} className="logo"></img></Navbar.Brand></Nav.Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="me-auto">
