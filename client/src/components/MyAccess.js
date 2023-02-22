@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import Upload from "../artifacts/contracts/Upload.sol/Upload.json";
-import { ethers } from "ethers";
 import "./myaccess.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 const MyAccess = ({ contract }) => {
   const sharing = async () => {
     const address = document.querySelector(".address-share").value;

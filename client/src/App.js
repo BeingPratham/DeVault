@@ -16,6 +16,7 @@ import { Share } from './components/Share';
 import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import videoBg from "../src/images/earth.mp4";
 
 
 
@@ -66,21 +67,22 @@ function BasicExample() {
   return (
 
     <div className="mainz">
-      {/* <video autoPlay loop muted playsInline src={videoBg}></video> */}
+      <video autoPlay loop muted playsInline src={videoBg}></video>
       <div className="content">
         <>
           <Router>
-          <Navbar bg="dark" expand="lg" variant="dark">
+          {/* <Navbar bg="dark" expand="lg" variant="dark"> */}
+          <Navbar className="navbar"  expand="lg">
               <Container>
               <Nav.Link as={Link} to="/"><Navbar.Brand >DeVault</Navbar.Brand></Nav.Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="me-auto">
-                    <Nav.Link as={Link} to="/">Home</Nav.Link>
-                     <Nav.Link as={Link} to='/images'>My Images</Nav.Link>
+                    <Nav.Link as={Link} to="/" >Home</Nav.Link>
+                     <Nav.Link as={Link} to='/images' >My Images</Nav.Link>
                      {/* <Nav.Link as={Link} to="/imagestemplate">My Image 2</Nav.Link> */}
                      
-                     <Nav.Link as={Link} to="/myaccess">My Access</Nav.Link>
+                     <Nav.Link as={Link} to="/myaccess" >My Access</Nav.Link>
                    </Nav>
                    <p className='acc'>{account}</p>
                  </Navbar.Collapse>
