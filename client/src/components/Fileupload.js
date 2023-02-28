@@ -1,7 +1,7 @@
 import "./Home.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-const JWT = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI3ZWNhMzhiYi0xNGIzLTQ2MzgtYjZhZS1hN2RiZDY0ODg0ODUiLCJlbWFpbCI6InVwYWRoeWF5cHJhdGhhbW0yMTVAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjYxNTc3Zjc3ZWQ2Njk3MGQyMTVmIiwic2NvcGVkS2V5U2VjcmV0IjoiNGMwODUzMzEyZWU4NDBhZDI3MDkxNzRjMGE2Y2JhMmU0ZTBkY2EzZGMyMzU0OGIxZmUzYzNkYzRlOTczZjUzZiIsImlhdCI6MTY3NzIxNjk4NH0.gQZMg0vkqJ8yIn_ypUUZ3EnFUiLgfjuOHu3mXj-n7PE'
+const JWT = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI3ZWNhMzhiYi0xNGIzLTQ2MzgtYjZhZS1hN2RiZDY0ODg0ODUiLCJlbWFpbCI6InVwYWRoeWF5cHJhdGhhbW0yMTVAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjVkODdlMDg4YjhiYTc0NTFjOGJkIiwic2NvcGVkS2V5U2VjcmV0IjoiNmM1ZWI2Nzk4OWY4MmIxYjM5N2NiNGI5MjA4MTVjNWUyNWY1NjI5ZDQyMTlkMmQ0YWQyNmVlZmJkYjdhZTU0YSIsImlhdCI6MTY3NzU2NDgyMH0.8Yzgs33y1LQKnOXTfYLz8MZM86p7JsQtx6fhoCafdC0'
 
 const Fileupload=({contract, account, provider})=> {
     const [file, setFile] = useState(null);
@@ -18,7 +18,7 @@ const Fileupload=({contract, account, provider})=> {
             formData.append("file", file);
     
             const resFile =  await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
-                maxBodyLength: "Infinity",
+              maxContentLength: "Infinity",
                 headers: {
                   'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
                   Authorization: JWT
@@ -40,6 +40,7 @@ const Fileupload=({contract, account, provider})=> {
         setFileName("No file selected");
         setFile(null);
       };
+      
       const retrieveFile = (e) => {
         const data = e.target.files[0]; //files array of files object
         // console.log(data);
@@ -50,8 +51,11 @@ const Fileupload=({contract, account, provider})=> {
         };
         console.log(e.target.files[0]);
         setFileName(e.target.files[0].name);
+        
+        
         e.preventDefault();
       };
+      
     return(
         <div className="File">
                 <form className="upload" onSubmit={handleSubmit}>
@@ -61,12 +65,12 @@ const Fileupload=({contract, account, provider})=> {
                     type="file"
                     id="file-upload"
                     name="data"
-                    accept="image/*,.pdf"
+                    
                     onChange={retrieveFile}
                     
                   ></input>
                   
-                  <br></br>
+                  {/* <br></br> */}
                   <button type="submit" className="upload-btn" disabled={!file} >Upload</button>
                 </form>
               </div>

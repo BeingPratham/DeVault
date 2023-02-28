@@ -23,9 +23,7 @@ function Home({account,provider,contract}) {
           provider={provider}
           contract={contract}></Fileupload>
             </section>
-            <div className="img">
-              {/* <img className="Img-eth" src="https://gifdb.com/images/high/ethereum-crypto-currency-ze5wridyq212wbi8.gif" alt="Etherium"></img> */}
-            </div>
+            
           </section>
         </div>
         </div>

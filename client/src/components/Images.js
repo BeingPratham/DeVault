@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import './Images.css'
+import fileIcon from "../images/FileIcon.png";
 
 function WSPGallery({account,contract}){
   const [data, setData] = useState("");
   useEffect(()=>{
     const getdata = async () => {
       let dataArray;
-    
+      
       try {
-        
+          
           dataArray = await contract.display(account);
         
       } catch (e) {
@@ -16,8 +17,9 @@ function WSPGallery({account,contract}){
         
       }
       const isEmpty = Object.keys(dataArray).length === 0;
-  
+      console.log(dataArray);
       if (!isEmpty) {
+        
         const str = dataArray.toString();
         const str_array = str.split(",");
         // console.log(str);
@@ -28,11 +30,13 @@ function WSPGallery({account,contract}){
             <a href={`https://ipfs.io/ipfs/${item.substring(6)}`} key={i} target="_blank">
               <img
                 key={i}
-                src={`https://ipfs.io/ipfs/${item.substring(6)}`}
+                src={fileIcon}
                 alt="new"
                 className="image-list"
               ></img>
+              {/* {item.substring(6)}<br></br> */}
             </a>
+            
           );
         });
         setData(images);
